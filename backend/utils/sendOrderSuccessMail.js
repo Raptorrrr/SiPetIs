@@ -12,8 +12,8 @@ export const sendMail = (order) => {
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: process.env.MAIL_ID, // generated ethereal user
-            pass: process.env.MAIL_PASSWORD, // generated ethereal password
+            user: "testperdanaemail@gmail.com", // generated ethereal user
+            pass: 'ryugamine123A', // generated ethereal password
         },
     });
 

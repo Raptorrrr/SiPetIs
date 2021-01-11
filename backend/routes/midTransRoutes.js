@@ -12,6 +12,7 @@ router.route('/success/').post(async (req,res)=>{
     if (order) {
         order.isPaid = true
         order.paidAt = Date.now()
+        order.isDelivered = true
         order.paymentResult = {
             transaction_id:req.body.transaction_id,
             method:req.body.payment_type,

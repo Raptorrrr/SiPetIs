@@ -50,8 +50,8 @@ const OrderScreen = ({match, history}) => {
     const addMidTransScript = async () => {
         const script = document.createElement('script')
         script.type = 'text/javascript'
-        script.src = `https://app.sandbox.midtrans.com/snap/snap.js`
-        script.setAttribute('data-client-key', 'SB-Mid-client-kcN2h53eawqXNH4c')
+        script.src = `https://app.midtrans.com/snap/snap.js`
+        script.setAttribute('data-client-key', 'Mid-client-Dt2T0BDImaqn956i')
         script.async = true
         script.onload = () => {
             setMidTransSDKReady(true)
@@ -72,7 +72,6 @@ const OrderScreen = ({match, history}) => {
             script.async = true
             script.onload = () =>
                 setSdkReady(true)
-
             document.head.appendChild(script)
         }
 
@@ -223,21 +222,26 @@ const OrderScreen = ({match, history}) => {
                                 </Row>
                             </ListGroup.Item>
 
-                            {
-                                midTransToken && isMidTransSDKReady ?
-                                (
-                                    <ListGroup.Item>
-                                        <Button style={{backgroundColor:"lightblue", width:"100%"}} variant="light" id="pay-button" onClick={()=> window.snap.pay(midTransToken)}><img style={{width:"130px", height:'auto'}} src="https://docs.midtrans.com/asset/image/main/midtrans-logo.png"/></Button>
-                                    </ListGroup.Item>
-                                ):<Loader/>
+                            <div>
+                                {
+                                    !order.isPaid&&
+                                    (
+                                        midTransToken && isMidTransSDKReady ?
+                                            (
+                                                <ListGroup.Item>
+                                                    <Button style={{backgroundColor:"lightblue", width:"100%"}} variant="light" id="pay-button" onClick={()=> window.snap.pay(midTransToken)}><img style={{width:"130px", height:'auto'}} src="https://docs.midtrans.com/asset/image/main/midtrans-logo.png"/></Button>
+                                                </ListGroup.Item>
+                                            ):<Loader/>
 
-                            }
+                                    )
+                                }
+                            </div>
+
                             {!order.isPaid &&
                             (<ListGroup.Item>
                                 {loadingPay && <Loader/>}
                                 {!sdkReady ? (<Loader/>) :
                                     (<PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>)
-
                                 }
                             </ListGroup.Item>)
                             }
